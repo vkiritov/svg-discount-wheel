@@ -4,7 +4,7 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 
 ## Fitur
 - Buyer wheel dengan voucher satu kali pakai yang ditegakkan oleh PostgreSQL (row lock + unique constraint).
-- Dua mode peluang: persentase manual (total harus 100%) atau jumlah bagian (peluang dihitung otomatis). Wheel menampilkan 20 sektor yang urutannya diacak: 6 sektor untuk 5%, 6 untuk 10%, 6 untuk 15%, dan 2 untuk 20%.
+- Dua mode peluang: persentase manual (total harus 100%) atau jumlah bagian (peluang dihitung otomatis). Wheel menampilkan sektor yang diacak; pilihan tampilan wheel (baru/lama) disimpan dari dashboard admin dan tidak tersedia di halaman buyer.
 - Admin login melalui Supabase Auth; akses admin menggunakan `app_metadata.role = admin`.
 - Pengaturan nama toko, judul wheel, dan nomor WhatsApp seller dari dashboard.
 - Pembuatan voucher massal, daftar voucher, riwayat spin.
@@ -15,13 +15,14 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 2. Buka SQL Editor, jalankan seluruh isi `supabase/migrations/0001_initial.sql`.
 3. Jalankan juga seluruh isi `supabase/migrations/0002_check_voucher_available.sql`. Migration kedua menambahkan pemeriksaan ketersediaan voucher yang aman tanpa membuka akses baca tabel voucher ke buyer.
 4. Jalankan `supabase/migrations/0003_wheel_slice_distribution.sql` untuk mengatur sektor menjadi 6/6/6/2 (total 20 potongan).
-5. Buka Authentication > Users, buat user admin.
-6. Buka user tersebut dan set **App Metadata** menjadi JSON:
+5. Jalankan `supabase/migrations/0004_wheel_display_setting.sql` untuk menyimpan pilihan tampilan wheel yang hanya dapat diubah dari dashboard admin.
+6. Buka Authentication > Users, buat user admin.
+7. Buka user tersebut dan set **App Metadata** menjadi JSON:
    ```json
    {"role":"admin"}
    ```
    Jangan gunakan User Metadata untuk role admin. App Metadata tidak dapat diubah oleh user biasa.
-7. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
+8. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
 
 ## 2. Jalankan lokal
 1. Install Node.js LTS.
