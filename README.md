@@ -14,13 +14,14 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 1. Buat project di https://supabase.com/dashboard.
 2. Buka SQL Editor, jalankan seluruh isi `supabase/migrations/0001_initial.sql`.
 3. Jalankan juga seluruh isi `supabase/migrations/0002_check_voucher_available.sql`. Migration kedua menambahkan pemeriksaan ketersediaan voucher yang aman tanpa membuka akses baca tabel voucher ke buyer.
-4. Buka Authentication > Users, buat user admin.
-5. Buka user tersebut dan set **App Metadata** menjadi JSON:
+4. Jalankan `supabase/migrations/0003_wheel_slice_distribution.sql` untuk mengatur sektor menjadi 6/6/6/2 (total 20 potongan).
+5. Buka Authentication > Users, buat user admin.
+6. Buka user tersebut dan set **App Metadata** menjadi JSON:
    ```json
    {"role":"admin"}
    ```
    Jangan gunakan User Metadata untuk role admin. App Metadata tidak dapat diubah oleh user biasa.
-6. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
+7. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
 
 ## 2. Jalankan lokal
 1. Install Node.js LTS.
