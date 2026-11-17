@@ -4,7 +4,7 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 
 ## Fitur
 - Buyer wheel dengan voucher satu kali pakai yang ditegakkan oleh PostgreSQL (row lock + unique constraint).
-- Dua mode peluang: persentase manual (total harus 100%) atau jumlah bagian (peluang dihitung otomatis).
+- Dua mode peluang: persentase manual (total harus 100%) atau jumlah bagian (peluang dihitung otomatis). Wheel menampilkan 20 sektor yang urutannya diacak: 6 sektor untuk 5%, 6 untuk 10%, 6 untuk 15%, dan 2 untuk 20%.
 - Admin login melalui Supabase Auth; akses admin menggunakan `app_metadata.role = admin`.
 - Pengaturan nama toko, judul wheel, dan nomor WhatsApp seller dari dashboard.
 - Pembuatan voucher massal, daftar voucher, riwayat spin.
