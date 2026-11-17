@@ -13,13 +13,14 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 ## 1. Buat project Supabase
 1. Buat project di https://supabase.com/dashboard.
 2. Buka SQL Editor, jalankan seluruh isi `supabase/migrations/0001_initial.sql`.
-3. Buka Authentication > Users, buat user admin.
-4. Buka user tersebut dan set **App Metadata** menjadi JSON:
+3. Jalankan juga seluruh isi `supabase/migrations/0002_check_voucher_available.sql`. Migration kedua menambahkan pemeriksaan ketersediaan voucher yang aman tanpa membuka akses baca tabel voucher ke buyer.
+4. Buka Authentication > Users, buat user admin.
+5. Buka user tersebut dan set **App Metadata** menjadi JSON:
    ```json
    {"role":"admin"}
    ```
    Jangan gunakan User Metadata untuk role admin. App Metadata tidak dapat diubah oleh user biasa.
-5. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
+6. Catat Project URL dan publishable key (atau anon key lama) dari Project Settings > API.
 
 ## 2. Jalankan lokal
 1. Install Node.js LTS.
@@ -43,7 +44,7 @@ Aplikasi wheel diskon berbasis React + Vite + Supabase, disiapkan untuk deploy g
 ## 4. Keamanan penting
 - Hanya publishable/anon key boleh berada di frontend. Jangan pernah masukkan service_role/secret key ke `.env` frontend atau GitHub.
 - Admin harus diberi `app_metadata.role=admin` melalui Supabase Dashboard.
-- Tabel voucher tidak dapat dibaca buyer; spin diproses oleh fungsi SQL `redeem_and_spin`.
+- Tabel voucher tidak dapat dibaca buyer. Pemeriksaan awal menggunakan fungsi terbatas `check_voucher_available`; spin final tetap diproses secara atomik oleh `redeem_and_spin`.
 - Fungsi mengunci baris voucher (`FOR UPDATE`) dan mencatat spin dengan unique `voucher_id`, sehingga dua request bersamaan tidak dapat memakai voucher yang sama dua kali.
 - Backup data secara berkala. Free plan dapat memiliki batas penggunaan dan project pause; cek harga/kuota penyedia.
 
