@@ -10,7 +10,8 @@ function Wheel({items,angle=0}) {
  const total=items.reduce((sum,item)=>sum+Number(item.weight??1),0)||1
  let cursor=0
  const sectors=items.map((item,i)=>{const start=cursor/total*360;cursor+=Number(item.weight??1);const end=cursor/total*360;return {...item,index:i,start,end,mid:(start+end)/2}})
- const gradient=sectors.map(s=>`${palette[s.rewardIndex%palette.length]} ${s.start/3.6}% ${s.end/3.6}%`).join(', ')
+ const separatorAngle=Math.min(1.1,360/Math.max(1,sectors.length)*0.12)
+ const gradient=sectors.flatMap(s=>{const color=palette[s.rewardIndex%palette.length];const half=separatorAngle/2;const start=s.start+half;const end=s.end-half;return [`${color} ${start/3.6}% ${end/3.6}%`,`#fff ${end/3.6}% ${(s.end+half)/3.6}%`] }).join(', ')
  return <div className="wheel-shell"><div className="pointer"/><div className="wheel" style={{transform:`rotate(${angle}deg)`,background:`conic-gradient(${gradient})`}}>{sectors.map(s=><span key={s.sliceKey} style={{'--label-angle':`${s.mid}deg`}}>{s.label||fmt(s.discount_percent)}</span>)}<div className="hub">SPIN</div></div></div>
 }
 export default function App(){
